@@ -1,4 +1,4 @@
-# Amazon-Seller-Fee-WebScraper
+# Amazon Seller Fee WebScraper
 
 This webscraper scrapes the rates of Referral Fees, FBA Fulfillment Fees and Storage Fees on this URL https://sell.amazon.com/pricing to keep updated on prices.
 
