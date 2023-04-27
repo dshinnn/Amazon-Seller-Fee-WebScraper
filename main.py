@@ -34,7 +34,7 @@ def Referral_Fees():
     return data
 
 def FBA_Fulfillment_Fees(type=1):
-    data = []
+    data = {}
     size_and_dimension = []
     shipping_weight = []
     non_apparel_fees = []
@@ -96,36 +96,36 @@ def FBA_Fulfillment_Fees(type=1):
     # Gets fees for non-apparel items
     if type == 1 or type == 4:
         # Manually formats rows for print
-        data.append([size_and_dimension[0], size_and_dimension[1], list(zip(shipping_weight[0:4], non_apparel_fees[0:4]))])     # Small Standard
-        data.append([size_and_dimension[2], size_and_dimension[3], list(zip(shipping_weight[0:9], non_apparel_fees[4:13]))])    # Large Standard
+        data['non_apparel_small'] = [size_and_dimension[0], size_and_dimension[1], list(zip(shipping_weight[0:4], non_apparel_fees[0:4]))]     # Small Standard
+        data['non_apparel_large'] = [size_and_dimension[2], size_and_dimension[3], list(zip(shipping_weight[0:9], non_apparel_fees[4:13]))]    # Large Standard
     
     # Gets fees for apparel items
     if type == 2 or type == 4:
-        data.append([size_and_dimension[0], size_and_dimension[1], list(zip(shipping_weight[0:4], apparel_fees[0:4]))])     # Small Standard
-        data.append([size_and_dimension[2], size_and_dimension[3], list(zip(shipping_weight[0:9], apparel_fees[4:13]))])    # Large Standard
+        data['apparel_small'] = [size_and_dimension[0], size_and_dimension[1], list(zip(shipping_weight[0:4], non_apparel_fees[0:4]))]     # Small Standard
+        data['apparel_large'] = [size_and_dimension[2], size_and_dimension[3], list(zip(shipping_weight[0:9], non_apparel_fees[4:13]))]    # Large Standard
 
     # Appends to data only if apparel or non-apparel fees are requested
     if type == 1 or type == 2 or type == 4:    
         # Identical for both apparel and non-apparel fees
-        data.append([size_and_dimension[4:7], oversize_fees[0]])      # Small Oversize
-        data.append([size_and_dimension[8:11], oversize_fees[1]])     # Medium Oversize
-        data.append([size_and_dimension[12:15], oversize_fees[2]])    # Large Oversize
-        data.append([size_and_dimension[16:19], oversize_fees[3]])    # Special Oversize
+        data['small_oversize'] = [size_and_dimension[4:7], oversize_fees[0]]       # Small Oversize
+        data['medium_oversize'] = [size_and_dimension[8:11], oversize_fees[1]]     # Medium Oversize
+        data['large_oversize'] = [size_and_dimension[12:15], oversize_fees[2]]     # Large Oversize
+        data['special_oversize'] = [size_and_dimension[16:19], oversize_fees[3]]   # Special Oversize
         
     # Gets fees for small and light items
     if type == 3 or type == 4:
-        data.append([table[235].get_text(), size_and_dimension[1], list(zip(shipping_weight[0:4], small_and_light_fees[0:4]))])     # Small Standard
-        data.append([table[245].get_text(), size_and_dimension[3], list(zip(shipping_weight[0:8], small_and_light_fees[4:12]))])    # Large Standard        
+        data['small_and_light_small'] = [table[235].get_text(), size_and_dimension[1], list(zip(shipping_weight[0:4], small_and_light_fees[0:4]))]      # Small Standard
+        data['small_and_light_large'] = [table[245].get_text(), size_and_dimension[3], list(zip(shipping_weight[0:8], small_and_light_fees[4:12]))]     # Large Standard       
     
     return data
 
 def Storage_Fees():
-    data = []
-    data.append([row.get_text() for row in table[263:266]])     # Standard
-    data.append([row.get_text() for row in table[266:269]])     # Oversize
+    data = {}
+    data['first'] = [row.get_text() for row in table[263:266]]      # Standard
+    data['second'] = [row.get_text() for row in table[266:269]]     # Oversize
     return data
 
 if __name__ == '__main__':
-    print(FBA_Fulfillment_Fees(2))
-    # Referral_Fees()
+    # print(FBA_Fulfillment_Fees(3))
+    print(Referral_Fees())
     # Storage_Fees()
