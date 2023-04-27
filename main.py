@@ -119,10 +119,11 @@ def FBA_Fulfillment_Fees(type=1):
     
     return data
 
+# Gets storage fee rates
 def Storage_Fees():
     data = {}
-    data['first'] = [row.get_text() for row in table[263:266]]      # Standard
-    data['second'] = [row.get_text() for row in table[266:269]]     # Oversize
+    data['first'] = [row.get_text() for row in table[263:266]]      # First set of months (Jan - Sept)
+    data['second'] = [row.get_text() for row in table[266:269]]     # Second set of months (Oct - Dec)
     return data
 
 if __name__ == '__main__':
